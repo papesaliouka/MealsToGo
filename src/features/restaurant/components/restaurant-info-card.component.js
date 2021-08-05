@@ -1,60 +1,23 @@
 import React from "react";
-import {
-  Text,
-  View,
-  SafeAreaView,
-  StyleSheet,
-  FlatList,
-  Image,
-} from "react-native";
-import Styled from "styled-components/native";
-import { Card } from "react-native-paper";
+
 import Spacer from "../../../components/spacer/spacer.component";
 import { SvgXml } from "react-native-svg";
 import star from "../../../../assets/star";
 import open from "../../../../assets/open";
+import { Text } from "../../../components/typography/text.component";
 
-const Info = Styled(View)`
-  padding:${(props) => props.theme.space[3]};
-`;
-const Rating = Styled(View)`
-  flex-direction:row;
-  padding-top:${(props) => props.theme.space[2]};
-  padding-bottom:${(props) => props.theme.space[2]};
-`;
+import {
+  Info,
+  Rating,
+  SectionEnd,
+  Section,
+  RestaurantCard,
+  RestaurantCardCover,
+  Icon,
+  Adress,
+} from "./restaurant-info-card.styles";
 
-const Title = Styled(Text)`
-  font-family : ${(props) => props.theme.fonts.heading};
-  font-size: ${(props) => props.theme.fontSizes.body};
-  color: ${(props) => props.theme.colors.ui.primary};
-`;
-
-const Section = Styled(View)`
-  flex-direction: row;
-  align-items:center;
-`;
-
-const SectionEnd = Styled(View)`
-  flex-direction:row;
-  flex:1;
-  justify-content:flex-end;
-`;
-
-const Adress = Styled(Text)`
-  font-family : ${(props) => props.theme.fonts.body};
-  font-size: ${(props) => props.theme.fontSizes.caption};
-`;
-
-const RestaurantCard = Styled(Card)`
-  background-color: ${(props) => props.theme.colors.bg.primary}
-`;
-
-const RestaurantCardCover = Styled(Card.Cover)`
-  padding:${(props) => props.theme.space[3]};
-  background-color: ${(props) => props.theme.colors.bg.primary};
-`;
-
-export default function RestaurantInfoCard({ restaurant = {} }) {
+const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
     name = "Some Restaurant",
     icon = "https://sajidsaiyed.files.wordpress.com/2016/06/cropped-cover-01.png",
@@ -73,7 +36,7 @@ export default function RestaurantInfoCard({ restaurant = {} }) {
     <RestaurantCard elevation={5}>
       <RestaurantCardCover key={name} source={{ uri: photos[0] }} />
       <Info>
-        <Title>{name}</Title>
+        <Text>{name}</Text>
         <Rating>
           <Section>
             {ratingArray.map((rate, i) => (
@@ -82,27 +45,27 @@ export default function RestaurantInfoCard({ restaurant = {} }) {
           </Section>
           <SectionEnd>
             {isClosedTemporarily && (
-              <Text variant="label" style={{ color: "red" }}>
+              <Text variant="error" size="caption" style={{ color: "red" }}>
                 CLOSED TEMPORARILY
               </Text>
             )}
-            <Spacer position="left" size="medium">
-              {isOpenNow && <SvgXml xml={open} width={20} height={20} />}
-            </Spacer>
-            <Spacer position="left" size="medium">
-              {
-                <Image
-                  source={{
-                    uri: icon,
-                  }}
-                  style={{ width: 25, height: 25 }}
-                />
-              }
-            </Spacer>
+            <Spacer variant="left.large" />
+            {isOpenNow && <SvgXml xml={open} width={20} height={20} />}
+            <Spacer variant="left.large" />
+            {
+              <Icon
+                source={{
+                  uri: icon,
+                }}
+                style={{ width: 25, height: 25 }}
+              />
+            }
           </SectionEnd>
         </Rating>
         <Adress>{adress}</Adress>
       </Info>
     </RestaurantCard>
   );
-}
+};
+
+export default RestaurantInfoCard;
