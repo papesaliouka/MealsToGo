@@ -2,7 +2,7 @@ import {Card} from 'react-native-paper'
 import Styled from "styled-components/native";
 
 export const Info = Styled.View`
-  padding:${(props) => props.theme.space[3]};
+  padding:${(props) => props.theme.space[2]};
 `;
 export const Rating = Styled.View`
   flex-direction:row;
